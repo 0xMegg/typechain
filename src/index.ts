@@ -15,7 +15,7 @@ class Block {
     typeof aBlock.previousHash === "string" &&
     typeof aBlock.timestamp === "number" &&
     typeof aBlock.data === "string";
-    
+
   public index: number;
   public hash: string;
   public previousHash: string;
@@ -50,21 +50,21 @@ const getNewTimestamp = (): number => Math.round(new Date().getTime() / 1000);
 const createNewBlock = (data: string): Block => {
   const previousBlock: Block = getLatestBlock();
   const newIndex: number = previousBlock.index + 1;
-  const newTiomestamp: number = getNewTimestamp();
+  const newTimestamp: number = getNewTimestamp();
   const newHash: string = Block.calculateBlockHash(
     newIndex,
     previousBlock.hash,
-    newTiomestamp,
+    newTimestamp,
     data
-  );
-  const newBlock: Block = new Block(
-    newIndex,
-    newHash,
-    previousBlock.hash,
-    data,
-    newTiomestamp
-  );
-  addBlock(newBlock);
+    );
+    const newBlock: Block = new Block(
+      newIndex,
+      newHash,
+      previousBlock.hash,
+      data,
+      newTimestamp
+      );
+      addBlock(newBlock);
   return newBlock;
 };
 
@@ -81,8 +81,7 @@ const isBlockValid = (candidateBlock: Block, previousBlock: Block): boolean => {
     return false;
   } else if (previousBlock.index + 1 !== candidateBlock.index) {
     return false;
-  } else if (previousBlock.hash !== candidateBlock.hash) {
-    console.log("3");
+  } else if (previousBlock.hash !== candidateBlock.previousHash) {
     return false;
   } else if (getHashforBlock(candidateBlock) !== candidateBlock.hash) {
     console.log("4");
